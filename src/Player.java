@@ -15,22 +15,22 @@ public class Player {
         marks = new ArrayList<>();
         switch (playerNumber) {
             case 1:
-                imagePath = "res/black x.jpg";
+                imagePath = "black x.jpg";
                 break;
             case 2:
-                imagePath = "res/red o.png";
+                imagePath = "red o.png";
                 break;
             case 3:
-                imagePath = "res/black o.png";
+                imagePath = "black o.png";
                 break;
             case 4:
-                imagePath = "res/red x.png";
+                imagePath = "red x.png";
                 break;
             case 5:
-                imagePath = "res/red check.png";
+                imagePath = "red check.png";
                 break;
             case 6:
-                imagePath = "res/black check.png";
+                imagePath = "black check.png";
                 break;
         }
     }
