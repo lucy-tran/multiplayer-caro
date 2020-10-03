@@ -1,3 +1,3 @@
-# Project Title Goes Here
+# Multiplayer Caro Game
 
-Info about your project goes here
+An extended version of tic-tac-toe where users can decide the number of players, board size, and the win condition. 
