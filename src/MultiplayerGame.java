@@ -1,5 +1,3 @@
-import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.GraphicsObject;
 import edu.macalester.graphics.*;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
@@ -21,6 +19,7 @@ public class MultiplayerGame {
     private List<Player> players;
     private boolean playMode; // true: game in play
     public static int rectangleCount;
+    private GraphicsText turnDisplay;
 
     public MultiplayerGame(CanvasWindow canvas) {
         this.canvas = canvas;
@@ -42,6 +41,11 @@ public class MultiplayerGame {
         drawRectangle();
         drawLine();
         canvas.add(playBoard);
+        turnDisplay = new GraphicsText();
+        turnDisplay.setText("Next turn: player 1");
+        turnDisplay.setPosition(50, 35);
+        turnDisplay.setFontSize(25);
+        canvas.add(turnDisplay);
         playMode = true;
         play();
 
@@ -51,6 +55,7 @@ public class MultiplayerGame {
         canvas.onClick(e -> {
             if (!players.isEmpty()) {
                 currentPlayer = players.get(turn % WelcomeWindow.numberOfPlayers);
+                turnDisplay.setText("Next turn: player " + ((turn + 1)% WelcomeWindow.numberOfPlayers + 1));
             }
             if (playMode && isRectangle(e.getPosition()) != null && currentPlayer != null) {
                 currentPlayer.addMark(playBoard, Objects.requireNonNull(isRectangle(e.getPosition())));
