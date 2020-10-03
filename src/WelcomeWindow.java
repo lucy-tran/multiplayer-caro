@@ -109,6 +109,7 @@ public class WelcomeWindow {
             updateAction.accept(
                     Integer.parseInt(
                             field.getText()));
+            errorText.setText("");
         } catch (NumberFormatException e) {
             errorText.setText("Invalid value. Please type an integer.");
             errorText.setCenter(300, 180);
