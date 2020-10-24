@@ -10,11 +10,11 @@ public class BoardSquare extends Rectangle {
         this.column = column;
     }
 
-    public int getRow(){
+    public int getRow() {
         return row;
     }
 
-    public int getColumn(){
+    public int getColumn() {
         return column;
     }
 

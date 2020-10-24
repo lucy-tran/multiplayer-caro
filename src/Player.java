@@ -1,24 +1,29 @@
-import java.util.ArrayList;
-
-import java.util.List;
-
 import edu.macalester.graphics.*;
 
-
 public class Player {
-    private String imagePath;
-    private List<Mark> marks;
-    private int playerNumber;
+    protected String imagePath;
+    protected int numOfMoves;
+    protected int playerNumber;
+    protected Game game;
+    protected int LEFT = 1;
+    protected int RIGHT = 2;
+    protected int UP = 3;
+    protected int DOWN = 4;
+    protected int UP_RIGHT = 5;
+    protected int DOWN_LEFT = 6;
+    protected int UP_LEFT = 7;
+    protected int DOWN_RIGHT = 8;
 
-    public Player(int playerNumber){
+    public Player(int playerNumber, Game game) {
         this.playerNumber = playerNumber;
-        marks = new ArrayList<>();
+        this.game = game;
+        numOfMoves = 0;
         switch (playerNumber) {
             case 1:
-                imagePath = "black x.jpg";
+                imagePath = "red o.png";
                 break;
             case 2:
-                imagePath = "red o.png";
+                imagePath = "black x.png";
                 break;
             case 3:
                 imagePath = "black o.png";
@@ -32,84 +37,17 @@ public class Player {
             case 6:
                 imagePath = "black check.png";
                 break;
+            default:
+                imagePath = "black x.png";
         }
     }
 
-    public void addMark(GraphicsGroup board, BoardSquare square){
-        Mark newMark = new Mark(imagePath, square.getColumn(), square.getRow());
-        newMark.setMaxSize(square.getHeight() * 0.8);
-        newMark.setCenter(square.getCenter());
-        board.remove(square);
-        board.add(newMark.getSymbol());
-        marks.add(newMark);
-        MultiplayerGame.rectangleCount--;
-    }
-
-    public boolean checkWin(){
-        if (checkWinInRow()) return true;
-        if (checkWinInColumn()) return true;
-        if (checkWinInDiagonalUpRight()) return true;
-        if (checkWinInDiagonalUpLeft()){
-            return true;
-        }
+    public boolean addMark(CanvasWindow canvas, int row, int column) {
+        // implemented in subclasses
         return false;
     }
 
-    private boolean checkWinInRow(){
-        for (Mark m: marks){
-            int count = 1;
-            for (int i = 1; i < WelcomeWindow.winCondition; i ++) {
-                if (isMarkInPosition(m.getColumn(), m.getRow() + i)) count += 1;
-            }
-            if (count == WelcomeWindow.winCondition) return true;
-        }
-        return false;
-    }
-
-    private boolean checkWinInColumn(){
-        for (Mark m: marks){
-            int count = 1;
-            for (int i = 1; i < WelcomeWindow.winCondition; i ++) {
-                if (isMarkInPosition(m.getColumn() + i, m.getRow())) count += 1;
-            }
-            if (count == WelcomeWindow.winCondition) return true;
-        }
-        return false;
-    }
-
-    private boolean checkWinInDiagonalUpRight(){
-        for (Mark m: marks){
-            int count = 1;
-           for (int i = 1; i < WelcomeWindow.winCondition; i ++) {
-                if (isMarkInPosition(m.getColumn() + i, m.getRow() + i)) count += 1;
-            }
-            if (count == WelcomeWindow.winCondition) return true;
-        }
-        return false;
-    }
-
-    private boolean checkWinInDiagonalUpLeft(){
-        for (Mark m: marks){
-            int count = 1;
-            for (int i = 1; i < WelcomeWindow.winCondition; i ++) {
-                if (isMarkInPosition(m.getColumn() + i, m.getRow() - i)) count += 1;
-            }
-            if (count == WelcomeWindow.winCondition) return true;
-        }
-        return false;
-    }
-
-    public String notifyWin(){
+    public String notifyWin() {
         return "Player " + playerNumber + " wins the game!";
-    }
-
-
-    private boolean isMarkInPosition(int column, int row){
-        for (Mark m: marks){
-            if (m.getRow() == row && m.getColumn() == column){
-                return true;
-            }
-        }
-        return false;
     }
 }
